@@ -1,0 +1,10 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+  <script/>
+  <ShortName>Jibiki</ShortName>
+  <Description>Japanese Dictionary (is very nice)</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Image width="16" height="16" type="image/x-icon">Favicon url</Image>
+  <Url type="application/x-suggestions+json" method="GET" template="https://ultimatejapanese.de/db/jmdict/suggest?query={searchTerms}" />
+  <Url type="text/html" method="GET" template="https://ultimatejapanese.de/?q={searchTerms}" />
+  <SearchForm>http://ultimatejapanese.de/</SearchForm>
+</OpenSearchDescription>
