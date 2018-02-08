@@ -1,0 +1,102 @@
+{% extends "base" %}
+
+{% block content %}
+
+    <div id="search" class="searchContainer">
+    {% for entry in data %}
+        <div class="listContainer">
+
+            <div class="columns is-gapless">
+                <div class="column is-2 isquerter">
+                        {% set kanji = entry.doc.kanji | first %}
+                        {% if kanji %}
+                            <div class="kanji">
+                                <ruby class="ruby"><span class="rt">{{kanji.readings | first }}</span><span class="rb">{{ kanji.text }}</span></ruby>
+
+                                {% if kanji.commonness != 0 %}
+                                    <div class="bar-outer">
+                                      <div class="bar-container" style="width: {{ kanji.commonness + 1 * 100 / 3 }} + '%' " > <div class="bar-text">{{ kanji.commonness }}</div> </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+
+                        {% if entry.doc.kanji | length == 0  %}
+                            <div class="kana">
+                                {% set my_var = entry.doc.kana | first %}
+                                {{ my_var.text }}
+                            </div>
+                        {% endif %}
+                        <!-- <div class="score smallHeader" >{{entry.hit.score}}</div> -->
+                </div>
+                <div class="column">
+
+                        {% if entry.doc.meanings.ger %}
+                            <p class="smallHeader" >German</p>
+                            <div class="meaningBlock">
+                                {% for meaning in entry.doc.meanings.ger %}
+                                    <span class="meaning" >
+                                        <span> {{ meaning.text }} </span>
+                                            {% if not loop.last %}
+                                                <span class="separator">&#9679;</span>
+                                            {% endif %}
+                                    </span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        {% if entry.doc.meanings.eng %}
+                            <p class="smallHeader"  >English</p>
+                            <div class="meaningBlock">
+                                {% for meaning in entry.doc.meanings.eng %}
+                                    <span class="meaning" >
+                                        <span> {{ meaning }}  </span>
+                                            {% if not loop.last %}
+                                                <span class="separator">&#9679;</span>
+                                            {% endif %}
+                                    </span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+    {% endfor %}
+
+    <style type="text/css">
+        .kana{
+            padding: 8px;
+            padding-left: 0;
+            font-size: 2em;
+            line-height: 1em;
+        }
+        .kanji{
+            font-size: 2em;
+            line-height: 1em;
+            padding: 8px;
+            padding-left: 0;
+        }
+        .ruby{
+            // font-size: 72pt;
+            display: inline-block;
+            line-height: 1em;
+            position: relative;
+        }
+        .rb{
+            display: inline-block;
+            // padding-top: 0.6em;
+            position: relative;
+        }
+        .rt{
+            font-size: 0.55em;
+            position: relative;
+            display: block;
+            line-height: 1.3em;
+            top: 0;
+        }
+    </style>
+
+
+{% endblock content %}
