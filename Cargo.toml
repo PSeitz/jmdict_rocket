@@ -12,8 +12,9 @@ serde_derive = "1.0.27"
 reqwest = "0.8.4"
 wana_kana = "0.9.1"
 measure_time = "*"
+lazy_static = "1.0"
 
 [dependencies.rocket_contrib]
-version = "*"
+version = "0.3.6"
 default-features = false
-features = ["tera_templates"]
+features = ["tera_templates", "json"]
