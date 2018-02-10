@@ -96,46 +96,40 @@ ready(function(){
     x.oninput = input;
 
     function myFocusFunction() {
-        // get_input().style.backgroundColor = "yellow";
         document.getElementById("suggestion_div").style.display = '';
     }
 
     function myBlurFunction() {
-        // get_input().style.backgroundColor = "";
-        // document.getElementById("suggestion_div").style.display = 'none';
+        // setTimeout(function(){
+        //     document.getElementById("suggestion_div").style.display = 'none';
+        // },1)
+        
     }
 
     function keypressed(e) {
         if (e.keyCode == 13) {
             console.log("enter" + get_input().value)
-            window.location = "http://localhost:8000/?q="+get_input().value.trim();
+            window.location = "http://localhost:8000/?skip=0&q="+get_input().value.trim();
             return false;
         }
     }
     function input(e) {
         get_json('/suggest?q='+get_input().value, function(data){
+            console.time("append suggestions");
             var el = document.getElementById("suggestion_div")
-            // el.outerHTML = '';
             el.outerHTML = get_suggest_html(data);
             el.style.display = '';
 
             var elements = document.querySelectorAll('.list_entry');
             Array.prototype.forEach.call(elements, function(el, i){
                 el.addEventListener("click", function( event ) {
-                    // display the current click count inside the clicked div
-                    // event.target.textContent = "click count: " + event.detail;
-                    window.location = "http://localhost:8000/?q="+el.textContent.trim();
+                    window.location = "http://localhost:8000/?skip=0&q="+el.textContent.trim();
                 }, false);
-                // el.addEventListener("focus", function( event ) {
-                //     // display the current click count inside the clicked div
-                //     // event.target.textContent = "click count: " + event.detail;
-                //     window.location = "http://localhost:8000/q="+el.textContent.trim();
-                // }, false);
             });
 
 
-
-            console.log(data)
+            console.timeEnd("append suggestions");
+            // console.log(data)
         })
     }
 

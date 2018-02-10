@@ -1,5 +1,10 @@
 {% extends "base" %}
 
+{% block styles %}
+<link href="styles.css" rel="stylesheet">
+{% endblock styles %}
+
+
 {% block content %}
 
     <div id="search" class="searchContainer">
@@ -15,7 +20,7 @@
 
                                 {% if kanji.commonness != 0 %}
                                     <div class="bar-outer">
-                                      <div class="bar-container" style="width: {{ kanji.commonness + 1 * 100 / 3 }} + '%' " > <div class="bar-text">{{ kanji.commonness }}</div> </div>
+                                      <div class="bar-container" style="width: {{ kanji.commonness/2 }}% " > <div class="bar-text">{{ kanji.commonness }}</div> </div>
                                     </div>
                                 {% endif %}
                             </div>
@@ -35,12 +40,7 @@
                             <p class="smallHeader" >German</p>
                             <div class="meaningBlock">
                                 {% for meaning in entry.doc.meanings.ger %}
-                                    <span class="meaning" >
-                                        <span> {{ meaning.text }} </span>
-                                            {% if not loop.last %}
-                                                <span class="separator">&#9679;</span>
-                                            {% endif %}
-                                    </span>
+                                    <span class="meaning"><span>{{ meaning.text}}</span>{% if not loop.last %}<span class="separator">&#9679;</span>{% endif %}</span>
                                 {% endfor %}
                             </div>
                         {% endif %}
@@ -49,12 +49,7 @@
                             <p class="smallHeader"  >English</p>
                             <div class="meaningBlock">
                                 {% for meaning in entry.doc.meanings.eng %}
-                                    <span class="meaning" >
-                                        <span> {{ meaning }}  </span>
-                                            {% if not loop.last %}
-                                                <span class="separator">&#9679;</span>
-                                            {% endif %}
-                                    </span>
+                                    <span class="meaning"><span>{{ meaning }}</span>{% if not loop.last %}<span class="separator">&#9679;</span>{% endif %}</span>
                                 {% endfor %}
                             </div>
                         {% endif %}
@@ -95,6 +90,84 @@
             display: block;
             line-height: 1.3em;
             top: 0;
+        }
+        .meaningBlock{
+            margin-bottom:8px
+        }
+        .meaning{
+            padding-top:1px;
+            padding-bottom:1px;
+            border-radius:2px;
+            white-space:normal;
+            display:inline-block;
+            font-size:.8rem
+        }
+        .separator{
+            margin-left:8px;
+            margin-right:8px
+        }
+        .engMeaning{
+            padding-top:8px
+        }
+        .commonness{
+            font-size:50%;
+            color:#e6ebf8
+        }
+        .reading{
+            color:#ff9000
+        }
+        .text{
+            white-space:normal;
+            display:inline-block
+        }
+        .kana,.kanji{
+            padding:8px;
+            padding-left:0;
+            font-size:2em;
+            line-height:1em
+        }
+        .score{
+            color:#e6ebf8;
+            position:absolute;
+            bottom:0
+        }
+        .smallHeader{
+            font-size:8px;
+            margin-left:2px
+        }
+        .listContainer{
+            border-bottom:1px solid #eee;
+            padding-top:.5rem;
+            padding-bottom:.5rem;
+            position:relative;
+            line-height:1em
+        }
+        .numHits{
+            padding-top:.5rem;
+            color:#e6ebf8;
+            font-size:12px;
+            right:.2rem;
+            position:absolute
+        }
+        .pagingContainer{
+            padding-top:1em;
+            text-align:center
+        }
+        .bar-outer{
+            font-size:50%;
+            margin:.25rem;
+            margin-left:0;
+            margin-right:2rem;
+            border-radius:4px;
+            line-height:1.5em
+        }
+        .bar-container{
+            background-color:#e6ebf8;
+            max-width:100%;
+            border-radius:4px
+        }
+        .bar-text{
+            padding-left:4px
         }
     </style>
 
